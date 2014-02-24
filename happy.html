@@ -1,0 +1,266 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HT5ML//EN">
+<html>
+<head>
+  <title>Oxford Happiness Questionaire</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.1/jquery.mobile-1.4.1.min.css" />
+  <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+  <script src="http://code.jquery.com/mobile/1.4.1/jquery.mobile-1.4.1.min.js"></script>
+  <script>
+
+function getScores() {
+  var scores = [];
+  var reverseQs = [1,5,6,10,13,14,19,23,24,27,28,29];
+
+  for (var i=1; i<=29; i++) {
+    // Get raw score
+    var score = $("#Q"+i).val();
+    
+    // Check score has been entered by user
+    if (score=="") {
+      throw "Question number "+i+" has not been answered.";
+    }
+
+    // Convert raw scores for the reverse questions
+    if (reverseQs.indexOf(i) > -1) {
+      // Result should be reversed
+      score = 7-score;
+    }
+
+    // Push processed score into array
+    scores.push( parseFloat(score) );
+  }
+
+  return scores;
+}
+
+
+function calcAverageScore( scores ) {
+  var total = 0.0;
+  for (var i=0; i<scores.length; i++) {
+    total += scores[i];
+  }
+  return (total / scores.length);
+}
+
+
+function onClickCalculateBtn() {
+
+  var scores;
+  try {
+    scores = getScores();
+  }
+  catch (e) {
+    $("#ResultsSection").slideUp();
+    alert(e+"  Please answer all questions.");
+    return;
+  }
+
+  avg = calcAverageScore(scores);
+  avg = Math.round(avg*10) / 10; // display to one decimal place
+  $("#Score").html(avg);
+  $("#ResultsSection").show();
+
+  // Scroll to results section
+  $.mobile.silentScroll($("#ResultsSection").offset().top);
+}
+
+$(document).on( "pageinit", "#OxfordHappinessQuestionaire", function(event) {
+  $("#ResultsSection").hide();
+  $("#CalculateBtn").click( onClickCalculateBtn );
+});
+
+  </script>
+</head>
+
+<body>
+<div data-role="page" id="OxfordHappinessQuestionaire">
+
+<div data-role="header">
+  <h1>Oxford Happiness Questionaire</h1>
+</div>
+
+<div data-role="content" id="$2-Content">
+  <p>This is a free and open-source calculator for the 29-question Oxford Happiness Questionaire.</p>
+
+  <h2>Instructions</h2>
+
+  <p>Below are a number of statements about happiness. Please indicate
+  how much you agree or disagree with each by entering a number in the
+  blank after each statement, according to the following scale:</p>
+
+  <p>1 = strongly disagree</br>
+  2 = moderately disagree</br>
+  3 = slightly disagree</br>
+  4 = slightly agree</br>
+  5 = moderately agree</br>
+  6 = strongly agree</p>
+
+  <p>Please read the statements carefully, because some are phrased
+  positively and others negatively. Don’t take too long over
+  individual questions; there are no "right" or "wrong" answers (and
+  no trick questions). The first answer that comes into your head is
+  probably the right one for you. If you find some of the questions
+  difficult, please give the answer that is true for you in general or
+  for most of the time.</p>
+
+
+  <h2>Questionaire</h2>
+
+  <label for="Q1">
+  I don’t feel particularly pleased with the way I am
+  </label>
+  <input id="Q1" min="1" max="6" step="1" data-highlight="true" type="range">
+
+  <label for="Q2">
+  I am intensely interested in other people
+  </label>
+  <input id="Q2" min="1" max="6" step="1" data-highlight="true" type="range">
+
+  <label for="Q3">
+  I feel that life is very rewarding.
+  </label>
+  <input id="Q3" min="1" max="6" step="1" data-highlight="true" type="range">
+
+  <label for="Q4">
+  I have very warm feelings towards almost everyone.
+  </label>
+  <input id="Q4" min="1" max="6" step="1" data-highlight="true" type="range">
+
+  <label for="Q5">
+  I rarely wake up feeling rested.
+  </label>
+  <input id="Q5" min="1" max="6" step="1" data-highlight="true" type="range">
+
+  <label for="Q6">
+  I am not particularly optimistic about the future.
+  </label>
+  <input id="Q6" min="1" max="6" step="1" data-highlight="true" type="range">
+
+  <label for="Q7">
+  I find most things amusing.
+  </label>
+  <input id="Q7" min="1" max="6" step="1" data-highlight="true" type="range">
+
+  <label for="Q8">
+  I am always committed and involved.
+  </label>
+  <input id="Q8" min="1" max="6" step="1" data-highlight="true" type="range">
+
+  <label for="Q9">
+  Life is good.
+  </label>
+  <input id="Q9" min="1" max="6" step="1" data-highlight="true" type="range">
+
+  <label for="Q10">
+  I do not think that the world is a good place.
+  </label>
+  <input id="Q10" min="1" max="6" step="1" data-highlight="true" type="range">
+
+  <label for="Q11">
+  I laugh a lot.
+  </label>
+  <input id="Q11" min="1" max="6" step="1" data-highlight="true" type="range">
+
+  <label for="Q12">
+  I am well satisfied about everything in my life.
+  </label>
+  <input id="Q12" min="1" max="6" step="1" data-highlight="true" type="range">
+
+  <label for="Q13">
+  I don’t think I look attractive.
+  </label>
+  <input id="Q13" min="1" max="6" step="1" data-highlight="true" type="range">
+
+  <label for="Q14">
+  There is a gap between what I would like to do and what I have done.
+  </label>
+  <input id="Q14" min="1" max="6" step="1" data-highlight="true" type="range">
+
+  <label for="Q15">
+  I am very happy.
+  </label>
+  <input id="Q15" min="1" max="6" step="1" data-highlight="true" type="range">
+
+  <label for="Q16">
+  I find beauty in some things.
+  </label>
+  <input id="Q16" min="1" max="6" step="1" data-highlight="true" type="range">
+
+  <label for="Q17">
+  I always have a cheerful effect on others.
+  </label>
+  <input id="Q17" min="1" max="6" step="1" data-highlight="true" type="range">
+
+  <label for="Q18">
+  I can fit in (find time for) everything I want to.
+  </label>
+  <input id="Q18" min="1" max="6" step="1" data-highlight="true" type="range">
+
+  <label for="Q19">
+  I feel that I am not especially in control of my life.
+  </label>
+  <input id="Q19" min="1" max="6" step="1" data-highlight="true" type="range">
+
+  <label for="Q20">
+  I feel able to take anything on.
+  </label>
+  <input id="Q20" min="1" max="6" step="1" data-highlight="true" type="range">
+
+  <label for="Q21">
+  I feel fully mentally alert.
+  </label>
+  <input id="Q21" min="1" max="6" step="1" data-highlight="true" type="range">
+
+  <label for="Q22">
+  I often experience joy and elation.
+  </label>
+  <input id="Q22" min="1" max="6" step="1" data-highlight="true" type="range">
+
+  <label for="Q23">
+  I don’t find it easy to make decisions.
+  </label>
+  <input id="Q23" min="1" max="6" step="1" data-highlight="true" type="range">
+
+  <label for="Q24">
+  I don’t have a particular sense of meaning and purpose in my life.
+  </label>
+  <input id="Q24" min="1" max="6" step="1" data-highlight="true" type="range">
+
+  <label for="Q25">
+  I feel I have a great deal of energy.
+  </label>
+  <input id="Q25" min="1" max="6" step="1" data-highlight="true" type="range">
+
+  <label for="Q26">
+  I usually have a good influence on events.
+  </label>
+  <input id="Q26" min="1" max="6" step="1" data-highlight="true" type="range">
+
+  <label for="Q27">
+  I don’t have fun with other people.
+  </label>
+  <input id="Q27" min="1" max="6" step="1" data-highlight="true" type="range">
+
+  <label for="Q28">
+  I don’t feel particularly healthy.
+  </label>
+  <input id="Q28" min="1" max="6" step="1" data-highlight="true" type="range">
+
+  <label for="Q29">
+  I don’t have particularly happy memories of the past.
+  </label>
+  <input id="Q29" min="1" max="6" step="1" data-highlight="true" type="range">
+
+  <button data-theme="b" id="CalculateBtn">Calculate score</button>
+
+  <div id="ResultsSection">
+    <h2>Result</h2>
+
+    <p>You scored <span id="Score">__</span>.  The score ranges from 1 (unhappy) to 6 (overly-happy).</p>
+  </div>
+
+</div> <!-- end of Content -->
+
+</html>
