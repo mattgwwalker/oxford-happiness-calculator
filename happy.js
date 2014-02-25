@@ -55,7 +55,7 @@ function onClickCalculateBtn() {
   $.mobile.silentScroll($("#ResultsSection").offset().top);
 }
 
-$(document).on( "pageinit", "#OxfordHappinessQuestionaire", function(event) {
+$(document).on( "pageinit", "#OxfordHappinessQuestionnaire", function(event) {
   $("#ResultsSection").hide();
   $("#CalculateBtn").click( onClickCalculateBtn );
 });
